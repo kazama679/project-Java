@@ -193,7 +193,14 @@ public class ProductUI {
         System.out.println("Nhập vào số tiền bắt đầu tìm kiếm: ");
         double start = Validator.ValidDouble(scanner, -1);
         System.out.println("Nhập vào số tiền bắt kết thúc kiếm: ");
-        double end = Validator.ValidDouble(scanner, -1);
+        double end;
+        while(true){
+            end = Validator.ValidDouble(scanner, -1);
+            if(end > start){
+                break;
+            }
+            System.err.println("Phải lớn hơn số ban đầu!");
+        }
         List<Product> listProducts = productService.searchByPrice(start, end);
         if(listProducts == null ||listProducts.isEmpty()){
             System.err.println("Danh sách sản phẩm rỗng!");
@@ -206,7 +213,14 @@ public class ProductUI {
         System.out.println("Nhập vào số lượng tồn kho bắt đầu tìm kiếm: ");
         int start = Validator.ValidInt(scanner, -1);
         System.out.println("Nhập vào số lượng tồn kho bắt kết thúc kiếm: ");
-        int end = Validator.ValidInt(scanner, -1);
+        int end;
+        while(true){
+            end = Validator.ValidInt(scanner, -1);
+            if(end > start){
+                break;
+            }
+            System.err.println("Phải lớn hơn số ban đầu!");
+        }
         List<Product> listProducts = productService.searchByStock(start, end);
         if(listProducts == null ||listProducts.isEmpty()){
             System.err.println("Danh sách sản phẩm rỗng!");
