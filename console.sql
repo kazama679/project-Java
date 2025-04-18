@@ -1,4 +1,4 @@
-# create database project;w
+# create database project;
 use project;
 
 create table customers(
@@ -25,7 +25,7 @@ create table invoices(
     foreign key (customer_id) references customers(customer_id)
 );
 
-create table invoice_items(
+create table invoice_details(
     item_id int auto_increment primary key,
     invoice_id int,
     product_id int,
@@ -163,3 +163,37 @@ begin
 end //
 delimiter //
 # end-tất cả phần liên quan customer
+
+delimiter //
+create procedure get_invoice_by_id(id_in int)
+begin
+    select * from invoices
+    where invoice_id = id_in;
+end //
+delimiter //
+
+delimiter //
+create procedure display_invoice()
+begin
+    select * from invoices;
+end;
+
+create procedure add_invoice(customer_id_in int, invoice_date_in date, total_amount_in decimal(12,2))
+begin
+    insert into invoices(customer_id, invoice_date, total_amount)
+    values(customer_id_in, invoice_date_in, total_amount_in);
+end;
+delimiter //
+
+delimiter //
+create procedure display_invoice_detail()
+begin
+    select * from invoice_details;
+end;
+
+create procedure add_invoice_detail(invoice_id_in int, product_id_in int, quantity_in int, unit_price_in decimal(10, 2))
+begin
+    insert into invoice_details(invoice_id, product_id, quantity, unit_price)
+    values(invoice_id_in, product_id_in, quantity_in, unit_price_in);
+end;
+delimiter //
