@@ -6,7 +6,8 @@ create table customers(
     name varchar(100) not null,
     phone varchar(20),
     email varchar(100),
-    address varchar(255)
+    address varchar(255),
+    status bit default 1
 );
 
 create table products(
@@ -14,7 +15,8 @@ create table products(
     name varchar(100) not null,
     brand varchar(50),
     price decimal(10, 2) not null,
-    stock int default 0
+    stock int default 0,
+    status bit default 1
 );
 
 create table invoices(
@@ -42,14 +44,15 @@ create table users(
     status bit
 );
 
-# insert into users(user_account, user_password, status)
-# values('admin', 'admin', 1);
+insert into users(user_account, user_password, status)
+values('admin', 'admin', 1);
 
-# tất cả phần liên quan product
+                                                                                        # tất cả phần liên quan product
 delimiter //
 create procedure display_product()
 begin
-    select * from products;
+    select * from products
+    where status=1 and stock>0;
 end;
 
 create procedure add_product(name_in varchar(100), brand_in varchar(50), price_in decimal(10,2), stock_in int)
@@ -70,13 +73,15 @@ end;
 
 create procedure delete_product(id_in int)
 begin
-    delete from products where product_id = id_in;
+    update products
+    set status = 0
+    where product_id = id_in;
 end //
 
 create procedure get_product_by_id(id_in int)
 begin
     select * from products
-        where product_id = id_in;
+        where product_id = id_in and status=1 and stock>0;
 end //
 delimiter //
 
@@ -84,23 +89,25 @@ delimiter //
 create procedure search_by_brand(brand_in varchar(50))
 begin
     select * from products
-        where brand like concat('%', lower(brand_in), '%');
+        where brand like concat('%', lower(brand_in), '%') and status=1 and stock>0;
 end;
 
 create procedure search_by_price(start decimal(10,2), end decimal(10,2))
 begin
     select * from products
-    where price >= start and price <= end;
+    where price >= start and price <= end and status=1 and stock>0;
 end;
 
 create procedure search_by_stock(start int, end int)
 begin
     select * from products
-    where stock >= start and stock <= end;
+    where stock >= start and stock <= end and status=1 and stock>0;
 end;
 delimiter //
-# end-tất cả phần liên quan product
+                                                                                    # end-tất cả phần liên quan product
 
+
+                                                                                        # tất cả phần liên quan user
 delimiter //
 create procedure display_user()
 begin
@@ -126,13 +133,15 @@ begin
     where user_id = id_in;
 end //
 delimiter //
+                                                                                        # end-tất cả phần liên quan user
 
 
-# tất cả phần liên quan customer
+                                                                                        # tất cả phần liên quan customer
 delimiter //
 create procedure display_customer()
 begin
-    select * from customers;
+    select * from customers
+        where status=1;
 end;
 
 create procedure add_customer(name_in varchar(100), phone_in varchar(20), email_in varchar(100), address_in varchar(255))
@@ -153,17 +162,29 @@ end;
 
 create procedure delete_customer(id_in int)
 begin
-    delete from customers where customer_id = id_in;
+    update customers
+    set status = 0
+    where customer_id = id_in;
 end //
 
 create procedure get_customer_by_id(id_in int)
 begin
     select * from customers
-    where customer_id = id_in;
+    where customer_id = id_in and status=1;
 end //
 delimiter //
-# end-tất cả phần liên quan customer
 
+delimiter //
+create procedure search_by_name(name_in varchar(100))
+begin
+    select * from customers
+    where name like concat('%', lower(name_in), '%') and status=1;
+end;
+delimiter //
+                                                                                    # end-tất cả phần liên quan customer
+
+
+                                                                                        # tất cả phần liên quan invoice
 delimiter //
 create procedure get_invoice_by_id(id_in int)
 begin
@@ -186,31 +207,10 @@ end;
 delimiter //
 
 delimiter //
-create procedure display_invoice_detail()
-begin
-    select * from invoice_details;
-end;
-
-create procedure add_invoice_detail(invoice_id_in int, product_id_in int, quantity_in int, unit_price_in decimal(10, 2))
-begin
-    insert into invoice_details(invoice_id, product_id, quantity, unit_price)
-    values(invoice_id_in, product_id_in, quantity_in, unit_price_in);
-end;
-delimiter //
-
-delimiter //
-create procedure display_invoice_detail_by_id(id_in int)
-begin
-    select * from invoice_details
-        where invoice_id = id_in;
-end;
-delimiter //
-
-delimiter //
 create procedure update_total_invoice(id_in int, total_in decimal(12,2))
 begin
     update invoices
-        set total_amount = total_in
+    set total_amount = total_in
     where invoice_id = id_in;
 end;
 delimiter //
@@ -219,7 +219,7 @@ delimiter //
 create procedure search_by_name_customer(name_in varchar(100))
 begin
     select i.* from invoices i
-        join customers c on i.customer_id = c.customer_id
+                        join customers c on i.customer_id = c.customer_id
     where c.name like concat('%', name_in, '%');
 end;
 delimiter //
@@ -251,8 +251,8 @@ begin
 end;
 delimiter //
 
-CALL total_by_month(01, 2000,01, 2025, @result);
-SELECT @result;
+# CALL total_by_month(01, 2000,01, 2025, @result);
+# SELECT @result;
 
 delimiter //
 create procedure total_by_year(year_in_start int, year_in_end int, out total decimal(12,2))
@@ -262,5 +262,30 @@ begin
 end;
 delimiter //
 
-CALL total_by_year(2025, 2025, @result);
-SELECT @result;
+# CALL total_by_year(2025, 2025, @result);
+# SELECT @result;
+                                                                                    # end-tất cả phần liên quan invoice
+
+
+                                                                                # tất cả phần liên quan invoice_detail
+delimiter //
+create procedure display_invoice_detail()
+begin
+    select * from invoice_details;
+end;
+
+create procedure add_invoice_detail(invoice_id_in int, product_id_in int, quantity_in int, unit_price_in decimal(10, 2))
+begin
+    insert into invoice_details(invoice_id, product_id, quantity, unit_price)
+    values(invoice_id_in, product_id_in, quantity_in, unit_price_in);
+end;
+delimiter //
+
+delimiter //
+create procedure display_invoice_detail_by_id(id_in int)
+begin
+    select * from invoice_details
+        where invoice_id = id_in;
+end;
+delimiter //
+                                                                            # end-tất cả phần liên quan invoice_detail
