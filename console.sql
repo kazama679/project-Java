@@ -197,3 +197,70 @@ begin
     values(invoice_id_in, product_id_in, quantity_in, unit_price_in);
 end;
 delimiter //
+
+delimiter //
+create procedure display_invoice_detail_by_id(id_in int)
+begin
+    select * from invoice_details
+        where invoice_id = id_in;
+end;
+delimiter //
+
+delimiter //
+create procedure update_total_invoice(id_in int, total_in decimal(12,2))
+begin
+    update invoices
+        set total_amount = total_in
+    where invoice_id = id_in;
+end;
+delimiter //
+
+delimiter //
+create procedure search_by_name_customer(name_in varchar(100))
+begin
+    select i.* from invoices i
+        join customers c on i.customer_id = c.customer_id
+    where c.name like concat('%', name_in, '%');
+end;
+delimiter //
+
+delimiter //
+create procedure search_by_date(date_in date)
+begin
+    select * from invoices
+    where invoice_date = date_in;
+end;
+delimiter //
+
+delimiter //
+create procedure total_by_day(date_in_start date, date_in_end date, out total decimal(12,2))
+begin
+    select sum(total_amount)into total from invoices
+    where invoice_date BETWEEN date_in_start and date_in_end;
+end;
+delimiter //
+
+CALL total_by_day('2024-04-01', '2025-04-22', @result);
+SELECT @result;
+
+delimiter //
+create procedure total_by_month(month_in_start int, year_in_start int, month_in_end int, year_in_end int, out total decimal(12,2))
+begin
+    select sum(total_amount)into total from invoices
+    where invoice_date BETWEEN concat(year_in_start,'-',month_in_start,'-01') and concat(year_in_end,'-',month_in_end,'-31');
+end;
+delimiter //
+
+CALL total_by_month(01, 2000,01, 2025, @result);
+SELECT @result;
+
+delimiter //
+create procedure total_by_year(year_in_start int, year_in_end int, out total decimal(12,2))
+begin
+    select sum(total_amount)into total from invoices
+    where invoice_date BETWEEN concat(year_in_start,'-01-01') and concat(year_in_end,'-12-31');
+end;
+delimiter //
+
+CALL total_by_year(2025, 2025, @result);
+SELECT @result;
