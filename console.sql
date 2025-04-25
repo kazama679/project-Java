@@ -83,6 +83,12 @@ begin
     select * from products
         where product_id = id_in and status=1 and stock>0;
 end //
+
+create procedure get_product_by_id_all(id_in int)
+begin
+    select * from products
+    where product_id = id_in;
+end //
 delimiter //
 
 delimiter //
@@ -171,6 +177,12 @@ create procedure get_customer_by_id(id_in int)
 begin
     select * from customers
     where customer_id = id_in and status=1;
+end //
+
+create procedure get_customer_by_id_all(id_in int)
+begin
+    select * from customers
+    where customer_id = id_in;
 end //
 delimiter //
 
