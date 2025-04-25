@@ -13,7 +13,7 @@ public class PrintColor {
     public static final String WHITE = "\u001B[37m";
 
     public static void printRed(String message) {
-        System.out.print(RED + message + RESET);
+        System.out.println(RED + message + RESET);
     }
 
     public static void printlnRed(String message) {
@@ -21,7 +21,7 @@ public class PrintColor {
     }
 
     public static void printGreen(String message) {
-        System.out.print(GREEN + message + RESET);
+        System.out.println(GREEN + message + RESET);
     }
 
     public static void printlnGreen(String message) {
@@ -29,7 +29,7 @@ public class PrintColor {
     }
 
     public static void printBlack(String message) {
-        System.out.print(BLACK + message + RESET);
+        System.out.println(BLACK + message + RESET);
     }
 
     public static void printlnBlack(String message) {
@@ -37,7 +37,7 @@ public class PrintColor {
     }
 
     public static void printYellow(String message) {
-        System.out.print(YELLOW + message + RESET);
+        System.out.println(YELLOW + message + RESET);
     }
 
     public static void printlnYellow(String message) {
@@ -45,7 +45,7 @@ public class PrintColor {
     }
 
     public static void printBlue(String message) {
-        System.out.print(BLUE + message + RESET);
+        System.out.println(BLUE + message + RESET);
     }
 
     public static void printlnBlue(String message) {
@@ -53,7 +53,7 @@ public class PrintColor {
     }
 
     public static void printPurple(String message) {
-        System.out.print(PURPLE + message + RESET);
+        System.out.println(PURPLE + message + RESET);
     }
 
     public static void printlnPurple(String message) {
@@ -61,7 +61,7 @@ public class PrintColor {
     }
 
     public static void printCyan(String message) {
-        System.out.print(CYAN + message + RESET);
+        System.out.println(CYAN + message + RESET);
     }
 
     public static void printlnCyan(String message) {
@@ -69,7 +69,7 @@ public class PrintColor {
     }
 
     public static void printWhite(String message) {
-        System.out.print(WHITE + message + RESET);
+        System.out.println(WHITE + message + RESET);
     }
 
     public static void printlnWhite(String message) {

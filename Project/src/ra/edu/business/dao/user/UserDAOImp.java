@@ -1,7 +1,6 @@
 package ra.edu.business.dao.user;
 
 import ra.edu.business.config.ConnectionDB;
-import ra.edu.business.model.Product;
 import ra.edu.business.model.User;
 import ra.edu.utils.Print.PrintError;
 
@@ -31,10 +30,10 @@ public class UserDAOImp implements UserDAO {
                 user.setStatus(rs.getBoolean("status"));
             }
         } catch (SQLException e) {
-            System.err.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy userDAOImp!");
         } catch (Exception e) {
-            System.err.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
-        } finally {
+            PrintError.println("Có lỗi không xác định trong quá trình chạy userDAOImp!");
+        }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
         return user;
@@ -59,10 +58,10 @@ public class UserDAOImp implements UserDAO {
                 listUsers.add(user);
             }
         } catch (SQLException e) {
-            System.err.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy userDAOImp!");
         } catch (Exception e) {
-            System.err.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
-        } finally {
+            PrintError.println("Có lỗi không xác định trong quá trình chạy userDAOImp!");
+        }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
         return listUsers;
@@ -87,9 +86,9 @@ public class UserDAOImp implements UserDAO {
             callSt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy userDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy userDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }

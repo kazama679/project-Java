@@ -3,6 +3,7 @@ package ra.edu.validate;
 import ra.edu.business.model.Invoice;
 import ra.edu.business.service.invoice.InvoiceService;
 import ra.edu.business.service.invoice.InvoiceServiceImp;
+import ra.edu.utils.Print.PrintError;
 
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class InvoiceValidator {
             if (invoice != null) {
                 return id;
             }
-            System.err.println("Id đơn hàng không tồn tại, vui lòng nhập lại!");
+            PrintError.println("Id đơn hàng không tồn tại, vui lòng nhập lại!");
         }
     }
 }

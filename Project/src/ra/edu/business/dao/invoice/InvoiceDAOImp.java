@@ -32,10 +32,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
                 }
                 invoice.setTotalAmount(rs.getDouble("total_amount"));
             }
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -53,10 +53,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
             callSt.setDouble(2, total);
             callSt.executeUpdate();
             return true;
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -87,10 +87,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
                 invoice.setTotalAmount(rs.getDouble("total_amount"));
                 listInvoice.add(invoice);
             }
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -121,10 +121,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
                 invoice.setTotalAmount(rs.getDouble("total_amount"));
                 listInvoice.add(invoice);
             }
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -144,10 +144,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
             callSt.registerOutParameter(3, Types.DECIMAL);
             callSt.execute();
             total = callSt.getDouble(3);
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -169,10 +169,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
             callSt.registerOutParameter(5, Types.DECIMAL);
             callSt.execute();
             total = callSt.getDouble(5);
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -192,10 +192,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
             callSt.registerOutParameter(3, Types.DECIMAL);
             callSt.execute();
             total = callSt.getDouble(3);
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -227,10 +227,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
                 invoice.setTotalAmount(rs.getDouble("total_amount"));
                 listInvoices.add(invoice);
             }
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -248,10 +248,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
             if (rs.next()) {
                 return rs.getInt("total");
             }
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -281,10 +281,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
                 invoice.setTotalAmount(rs.getDouble("total_amount"));
                 listInvoices.add(invoice);
             }
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -303,10 +303,10 @@ public class InvoiceDAOImp implements InvoiceDAO{
             callSt.setDouble(3, invoice.getTotalAmount());
             callSt.executeUpdate();
             return true;
-        } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy invoiceDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy invoiceDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }

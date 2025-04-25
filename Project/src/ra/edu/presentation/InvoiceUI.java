@@ -10,6 +10,9 @@ import ra.edu.business.service.invoiceDetail.InvoiceDetailService;
 import ra.edu.business.service.invoiceDetail.InvoiceDetailServiceImp;
 import ra.edu.business.service.product.ProductService;
 import ra.edu.business.service.product.ProductServiceImp;
+import ra.edu.utils.Print.PrintError;
+import ra.edu.utils.Print.PrintSuccess;
+import ra.edu.utils.Print.printColor.PrintColor;
 import ra.edu.validate.Validator;
 
 import java.time.LocalDate;
@@ -54,10 +57,10 @@ public class InvoiceUI {
                     totalRevenue(scanner);
                     break;
                 case 6:
-                    System.out.println("Thoát MENU INVOICE!");
+                    PrintColor.printYellow("Thoát MENU INVOICE!");
                     break;
                 default:
-                    System.out.println("Vui lòng chọn từ 1-6!");
+                    PrintError.println("Vui lòng chọn từ 1-6!");
             }
         }while(choice!=6);
     }
@@ -92,14 +95,14 @@ public class InvoiceUI {
             switch (choice) {
                 case 1:
                     if(offset==0){
-                        System.err.println("Không thể lùi về trang trước vì đang là trang đầu tiên!");
+                        PrintError.println("Không thể lùi về trang trước vì đang là trang đầu tiên!");
                     }else{
                         offset = offset-rowCount;
                     }
                     break;
                 case 2:
                     if (offset + rowCount >= page) {
-                        System.err.println("Không thể tiến về trang sau vì đang là trang cuối cùng!");
+                        PrintError.println("Không thể tiến về trang sau vì đang là trang cuối cùng!");
                     } else {
                         offset += rowCount;
                     }
@@ -110,10 +113,10 @@ public class InvoiceUI {
                     offset = n*5-5;
                     break;
                 case 4:
-                    System.out.println("Thoát menu hiển thị danh sách hóa đơn!");
+                    PrintColor.printYellow("Thoát menu hiển thị danh sách hóa đơn!");
                     return;
                 default:
-                    System.err.println("Vui lòng chọn đúng!");
+                    PrintError.println("Vui lòng chọn đúng!");
             }
         }
     }
@@ -124,7 +127,7 @@ public class InvoiceUI {
         int id = Validator.ValidInt(scanner, 0);
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllById(id);
         if(invoiceDetails == null || invoiceDetails.isEmpty()) {
-            System.err.printf("Không tìm thấy hóa đơn có id là: %d!\n",id);
+            PrintError.println("Không tìm thấy hóa đơn có id là: "+id+"!");
             return;
         }
         System.out.println("+----+------------+--------------------------------+----------+--------------------------+");
@@ -142,28 +145,28 @@ public class InvoiceUI {
             invoice.inputData(sc);
             boolean check = invoiceService.add(invoice);
             if (!check) {
-                System.err.println("Có lỗi trong quá trình thêm!");
+                PrintError.println("Có lỗi trong quá trình thêm!");
                 return;
             }
-            System.out.println("Thêm hóa đơn thành công!");
+            PrintSuccess.println("Thêm hóa đơn thành công!");
             System.out.println("===============THÊM HÓA ĐƠN CHI TIẾT================");
             while(true){
                 InvoiceDetail invoiceDetail = new InvoiceDetail();
                 invoiceDetail.inputData(sc, invoiceService.findAll().getLast().getInvoiceId());
                 boolean result = invoiceDetailService.add(invoiceDetail);
                 if(!result){
-                    System.err.println("Có lỗi trong quá trình thêm chi tiết hóa đơn!");
+                    PrintError.println("Có lỗi trong quá trình thêm chi tiết hóa đơn!");
                     return;
                 }
-                System.out.println("Thêm hóa đơn chi tiết thành công!");
+                PrintSuccess.println("Thêm hóa đơn chi tiết thành công!");
                 Product product = productService.findById(invoiceDetail.getProductId());
                 if (product == null) {
-                    System.err.println("Không tìm thấy sản phẩm!");
+                    PrintError.println("Không tìm thấy sản phẩm!");
                     return;
                 }product.setStock(product.getStock()-invoiceDetail.getQuantity());
                 boolean checkProduct = productService.update(product);
                 if (!checkProduct) {
-                    System.err.println("Có lỗi trong quá trình trừ số lượng!");
+                    PrintError.println("Có lỗi trong quá trình trừ số lượng!");
                     return;
                 }
                 System.out.println("Trừ số lượng sản phẩm thành công!");
@@ -173,6 +176,7 @@ public class InvoiceUI {
                 System.out.println("Lựa chọn của bạn: ");
                 int choice = Validator.ValidInt(sc,0);
                 if(choice != 1){
+                    PrintSuccess.println("Đã hoàn tất quá trình thêm các hóa đơn chi tiết!");
                     break;
                 }
             }
@@ -187,7 +191,7 @@ public class InvoiceUI {
     public static double totalAmountInvoice(int id){
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllById(id);
         if(invoiceDetails==null){
-            System.err.println("Không tìm chi tiết đơn hàng!");
+            PrintError.println("Không tìm chi tiết đơn hàng!");
             return 0;
         }
         return invoiceDetails.stream().mapToDouble(InvoiceDetail::getUnitPrice).sum();
@@ -209,10 +213,10 @@ public class InvoiceUI {
                     searchDate(scanner);
                     break;
                 case 3:
-                    System.out.println("Thoát menu tìm kiếm!");
+                    PrintColor.printYellow("Thoát menu tìm kiếm!");
                     return;
                 default:
-                    System.err.println("Vui lòng chọn từ 1-3!");
+                    PrintError.println("Vui lòng chọn từ 1-3!");
             }
         }
     }
@@ -222,7 +226,7 @@ public class InvoiceUI {
         String name = Validator.ValidString(scanner,0,100);
         List<Invoice> invoices = invoiceService.findByName(name);
         if(invoices==null || invoices.isEmpty()){
-            System.err.printf("Không tìm thấy hóa đơn của khác hàng có tên là: %s!\n",name);
+            PrintError.println("Không tìm thấy hóa đơn của khác hàng có tên là: "+name+"!");
             return;
         }
         System.out.println("+----+--------------------------------+------------+------------------+-------------------+");
@@ -237,7 +241,7 @@ public class InvoiceUI {
         LocalDate date = Validator.validDate(scanner, LocalDate.MIN);
         List<Invoice> invoices = invoiceService.findByDate(date);
         if(invoices==null || invoices.isEmpty()){
-            System.err.printf("Không tìm thấy hóa đơn của ngày: %s!\n",date);
+            PrintError.println("Không tìm thấy hóa đơn của ngày: "+date+"!");
             return;
         }
         System.out.println("+----+--------------------------------+------------+------------------+-------------------+");
@@ -267,10 +271,10 @@ public class InvoiceUI {
                     totalRevenueYear(scanner);
                     break;
                 case 4:
-                    System.out.println("Thoát menu doanh thu!");
+                    PrintColor.printYellow("Thoát menu doanh thu!");
                     return;
                 default:
-                    System.err.println("Vui lòng chọn từ 1-4!");
+                    PrintError.println("Vui lòng chọn từ 1-4!");
             }
         }
     }

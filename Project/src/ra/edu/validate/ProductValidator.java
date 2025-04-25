@@ -3,6 +3,7 @@ package ra.edu.validate;
 import ra.edu.business.model.Product;
 import ra.edu.business.service.product.ProductService;
 import ra.edu.business.service.product.ProductServiceImp;
+import ra.edu.utils.Print.PrintError;
 
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class ProductValidator {
             if (product != null) {
                 return id;
             }
-            System.err.println("Id sản phẩm không tồn tại, vui lòng nhập lại!");
+            PrintError.println("Id sản phẩm không tồn tại, vui lòng nhập lại!");
         }
     }
 
@@ -28,10 +29,10 @@ public class ProductValidator {
                 if(product.getStock()>=n){
                     return n;
                 }
-                System.err.println("Số lượng trong kho không đủ, vui lòng nhập lại!");
+                PrintError.println("Số lượng trong kho không đủ, vui lòng nhập lại!");
                 continue;
             }
-            System.err.println("Không tìm thấy sản phẩm");
+            PrintError.println("Không tìm thấy sản phẩm");
         }
     }
 }

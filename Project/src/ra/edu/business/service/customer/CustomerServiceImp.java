@@ -18,6 +18,11 @@ public class CustomerServiceImp implements CustomerService {
     }
 
     @Override
+    public Customer findByIdAll(int id) {
+        return customerDAO.findByIdAll(id);
+    }
+
+    @Override
     public List<Customer> searchByName(String name) {
         return customerDAO.searchByName(name);
     }

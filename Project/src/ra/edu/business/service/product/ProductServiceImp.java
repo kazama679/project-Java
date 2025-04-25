@@ -20,6 +20,11 @@ public class ProductServiceImp implements ProductService{
     }
 
     @Override
+    public Product findByIdAll(int id) {
+        return productDAO.findByIdAll(id);
+    }
+
+    @Override
     public List<Product> searchByBrand(String brand) {
         return productDAO.searchByBrand(brand);
     }

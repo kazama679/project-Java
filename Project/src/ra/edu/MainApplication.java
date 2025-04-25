@@ -6,6 +6,9 @@ import ra.edu.business.service.user.UserServiceImp;
 import ra.edu.presentation.CustomerUI;
 import ra.edu.presentation.InvoiceUI;
 import ra.edu.presentation.ProductUI;
+import ra.edu.utils.Print.PrintError;
+import ra.edu.utils.Print.PrintSuccess;
+import ra.edu.utils.Print.printColor.PrintColor;
 import ra.edu.validate.Validator;
 
 import java.util.List;
@@ -35,10 +38,10 @@ public class MainApplication {
                     login(sc);
                     break;
                 case 2:
-                    System.out.println("Dừng chương trình!");
+                    PrintColor.printYellow("Dừng chương trình!");
                     System.exit(0);
                 default:
-                    System.out.println("Vui lòng chọn từ 1-2!");
+                    PrintError.println("Vui lòng chọn từ 1-2!");
             }
         }while(true);
     }
@@ -52,7 +55,7 @@ public class MainApplication {
             System.out.println("Nhập mật khẩu: ");
             String password = Validator.ValidString(sc, 0,255);
             if(listUsers.stream().anyMatch(user->user.getAccount().equals(email) && user.getPassword().equals(password))){
-                System.out.printf("Đăng nhập thành công, xin chào %s!\n",email);
+                PrintSuccess.println("Đăng nhập thành công, xin chào "+email+"!");
                 User user = userService.findById(1);
                 if (user != null) {
                     user.setStatus(true);
@@ -60,7 +63,7 @@ public class MainApplication {
                 }
                 menu(sc);
             }else{
-                System.err.println("Tài khoản hoặc mật khẩu không chính xác, vui lòng nhập lại!");
+                PrintError.println("Tài khoản hoặc mật khẩu không chính xác, vui lòng nhập lại!");
             }
         }
     }
@@ -88,7 +91,7 @@ public class MainApplication {
                     InvoiceUI.menuInvoice(sc);
                     break;
                 case 4:
-                    System.out.println("Đăng xuất thành công!");
+                    PrintSuccess.println("Đăng xuất thành công!");
                     User user = userService.findById(1);
                     if (user != null) {
                         user.setStatus(false);
@@ -96,10 +99,10 @@ public class MainApplication {
                     }
                     break;
                 case 5:
-                    System.out.println("Thoát chương trình!");
+                    PrintColor.printYellow("Thoát chương trình!");
                     System.exit(0);
                 default:
-                    System.out.println("Vui lòng nhập từ 1-5!");
+                    PrintError.println("Vui lòng nhập từ 1-5!");
             }
         }while(choice!=4);
     }

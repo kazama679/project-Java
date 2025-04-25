@@ -1,5 +1,7 @@
 package ra.edu.validate;
 
+import ra.edu.utils.Print.PrintError;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,14 +13,14 @@ public class Validator {
             try {
                 int n = Integer.parseInt(sc.nextLine());
                 if(n<=min){
-                    System.err.println("Phải lớn hơn "+min);
+                    PrintError.println("Phải lớn hơn "+min);
                     continue;
                 }
                 return n;
             } catch (NumberFormatException e1) {
-                System.err.println("Không phải số, vui lòng nhập lại!");
+                PrintError.println("Không phải số, vui lòng nhập lại!");
             } catch (Exception e) {
-                System.err.println("Có lỗi không xác định khi validate: "+e.getMessage());
+                PrintError.println("Có lỗi không xác định khi validate: "+e.getMessage());
             }
         }
     }
@@ -30,11 +32,11 @@ public class Validator {
                 if(n>min && n<max){
                     return n;
                 }
-                System.err.println("Phải lớn hơn "+min+" và nhỏ hơn "+max);
+                PrintError.println("Phải lớn hơn "+min+" và nhỏ hơn "+max);
             } catch (NumberFormatException e1) {
-                System.err.println("Không phải số, vui lòng nhập lại!");
+                PrintError.println("Không phải số, vui lòng nhập lại!");
             } catch (Exception e) {
-                System.err.println("Có lỗi không xác định khi validate: "+e.getMessage());
+                PrintError.println("Có lỗi không xác định khi validate: "+e.getMessage());
             }
         }
     }
@@ -44,14 +46,14 @@ public class Validator {
             try {
                 double n = Double.parseDouble(sc.nextLine());
                 if (n <= min) {
-                    System.err.println("Phải lớn hơn " + min);
+                    PrintError.println("Phải lớn hơn " + min);
                     continue;
                 }
                 return n;
             } catch (NumberFormatException e1) {
-                System.err.println("Không phải số thực, vui lòng nhập lại!");
+                PrintError.println("Không phải số thực, vui lòng nhập lại!");
             } catch (Exception e) {
-                System.err.println("Có lỗi không xác định khi validate: "+e.getMessage());
+                PrintError.println("Có lỗi không xác định khi validate: "+e.getMessage());
             }
         }
     }
@@ -63,9 +65,9 @@ public class Validator {
                 if(b.equals("true")||b.equals("false")||b.isEmpty()){
                     return Boolean.parseBoolean(b);
                 }
-                System.err.println("Không đúng định dạng kiểu Boolean, vui lòng nhập lại!");
+                PrintError.println("Không đúng định dạng kiểu Boolean, vui lòng nhập lại!");
             } catch (Exception e) {
-                System.err.println("Có lỗi không xác định khi validate: "+e.getMessage());
+                PrintError.println("Có lỗi không xác định khi validate: "+e.getMessage());
             }
         }
     }
@@ -75,16 +77,16 @@ public class Validator {
             try {
                 String s = sc.nextLine();
                 if(s.isEmpty()){
-                    System.err.println("Không được để trống, vui lòng nhập lại!");
+                    PrintError.println("Không được để trống, vui lòng nhập lại!");
                     continue;
                 }
                 if(s.length()<min||s.length()>max){
-                    System.out.println("Không đúng định dạng chuỗi, vui lòng nhập lại!");
+                    PrintError.println("Không đúng định dạng chuỗi, vui lòng nhập lại!");
                     continue;
                 }
                 return s;
             }catch (Exception e) {
-                System.err.println("Có lỗi không xác định khi validate: "+e.getMessage());
+                PrintError.println("Có lỗi không xác định khi validate: "+e.getMessage());
             }
         }
     }
@@ -94,12 +96,12 @@ public class Validator {
             try {
                 String email = sc.nextLine();
                 if(!email.matches("^[a-zA-Z0-9._]+@[a-zA-Z0-9]+(\\.[a-zA-Z]{2,6})+$")){
-                    System.err.println("Không đúng định dạng email, vui lòng nhập lại!");
+                    PrintError.println("Không đúng định dạng email, vui lòng nhập lại!");
                     continue;
                 }
                 return email;
             }catch (Exception e) {
-                System.err.println("Có lỗi không xác định khi validate: "+e.getMessage());
+                PrintError.println("Có lỗi không xác định khi validate: "+e.getMessage());
             }
         }
     }
@@ -109,12 +111,12 @@ public class Validator {
             try {
                 String phone = sc.nextLine();
                 if(!phone.matches("^(03[2-9]|05[2689]|07[0-9]|08[1-9]|09[0-9])\\d{7}$")){
-                    System.err.println("Không đúng định dạng số điện thoại Việt Nam, vui lòng nhập lại!");
+                    PrintError.println("Không đúng định dạng số điện thoại Việt Nam, vui lòng nhập lại!");
                     continue;
                 }
                 return phone;
             }catch (Exception e) {
-                System.err.println("Có lỗi không xác định khi validate: "+e.getMessage());
+                PrintError.println("Có lỗi không xác định khi validate: "+e.getMessage());
             }
         }
     }
@@ -125,14 +127,14 @@ public class Validator {
             try {
                 LocalDate inputDate = LocalDate.parse(sc.nextLine(), formatter);
                 if (inputDate.isBefore(date)) {
-                    System.err.println("Ngày nhập vào phải lớn hơn hoặc bằng " + date.format(formatter) + ". Vui lòng nhập lại!");
+                    PrintError.println("Ngày nhập vào phải lớn hơn hoặc bằng " + date.format(formatter) + ". Vui lòng nhập lại!");
                     continue;
                 }
                 return inputDate;
             }catch (DateTimeParseException e1) {
-                System.err.println("Định dạng date k đúng, vui lòng nhập lại!");
+                PrintError.println("Định dạng date k đúng, vui lòng nhập lại!");
             }catch (Exception e) {
-                System.err.println("Có lỗi không xác định khi validate: "+e.getMessage());
+                PrintError.println("Có lỗi không xác định khi validate: "+e.getMessage());
             }
         }
     }
@@ -142,14 +144,14 @@ public class Validator {
             try {
                 int n = Integer.parseInt(sc.nextLine());
                 if(n<=min || n>=max){
-                    System.err.println("Phải lớn hơn "+min+" và phải nhỏ hơn "+max);
+                    PrintError.println("Phải lớn hơn "+min+" và phải nhỏ hơn "+max);
                     continue;
                 }
                 return n;
             } catch (NumberFormatException e1) {
-                System.err.println("Không phải số, vui lòng nhập lại!");
+                PrintError.println("Không phải số, vui lòng nhập lại!");
             } catch (Exception e) {
-                System.err.println("Có lỗi không xác định khi validate: "+e.getMessage());
+                PrintError.println("Có lỗi không xác định khi validate: "+e.getMessage());
             }
         }
     }
@@ -162,17 +164,17 @@ public class Validator {
                     if (yearEnd >= yearStart) {
                         return yearEnd;
                     }
-                    System.err.println("Năm kết thúc phải lớn hơn hoặc bằng năm bắt đầu!");
+                    PrintError.println("Năm kết thúc phải lớn hơn hoặc bằng năm bắt đầu!");
                 } else {
                     if (yearEnd > yearStart) {
                         return yearEnd;
                     }
-                    System.err.println("Năm kết thúc phải lớn hơn năm bắt đầu!");
+                    PrintError.println("Năm kết thúc phải lớn hơn năm bắt đầu!");
                 }
             } catch (NumberFormatException e) {
-                System.err.println("Không phải số. Vui lòng nhập lại.");
+                PrintError.println("Không phải số. Vui lòng nhập lại.");
             } catch (Exception e) {
-                System.err.println("Lỗi không xác định: " + e.getMessage());
+                PrintError.println("Lỗi không xác định: " + e.getMessage());
             }
         }
     }

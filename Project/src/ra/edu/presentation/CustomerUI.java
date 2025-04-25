@@ -1,11 +1,13 @@
 package ra.edu.presentation;
 
 import ra.edu.business.model.Customer;
-import ra.edu.business.model.Product;
 import ra.edu.business.service.customer.CustomerService;
 import ra.edu.business.service.customer.CustomerServiceImp;
 import ra.edu.business.service.invoice.InvoiceService;
 import ra.edu.business.service.invoice.InvoiceServiceImp;
+import ra.edu.utils.Print.PrintError;
+import ra.edu.utils.Print.PrintSuccess;
+import ra.edu.utils.Print.printColor.PrintColor;
 import ra.edu.validate.CustomerValidator;
 import ra.edu.validate.Validator;
 
@@ -48,7 +50,7 @@ public class CustomerUI {
                     searchByName(scanner);
                     break;
                 case 6:
-                    System.out.println("Thoát MENU CUSTOMER!");
+                    PrintColor.printYellow("Thoát MENU CUSTOMER!");
                     break;
                 default:
                     System.out.println("Vui lòng chọn từ 1-6!");
@@ -86,14 +88,14 @@ public class CustomerUI {
             switch (choice) {
                 case 1:
                     if(offset==0){
-                        System.err.println("Không thể lùi về trang trước vì đang là trang đầu tiên!");
+                        PrintError.println("Không thể lùi về trang trước vì đang là trang đầu tiên!");
                     }else{
                         offset = offset-rowCount;
                     }
                     break;
                 case 2:
                     if (offset + rowCount >= page) {
-                        System.err.println("Không thể tiến về trang sau vì đang là trang cuối cùng!");
+                        PrintError.println("Không thể tiến về trang sau vì đang là trang cuối cùng!");
                     } else {
                         offset += rowCount;
                     }
@@ -104,10 +106,10 @@ public class CustomerUI {
                     offset = n*5-5;
                     break;
                 case 4:
-                    System.out.println("Thoát menu hiển thị danh sách khách hàng!");
+                    PrintColor.printYellow("Thoát menu hiển thị danh sách khách hàng!");
                     return;
                 default:
-                    System.err.println("Vui lòng chọn đúng!");
+                    PrintError.println("Vui lòng chọn đúng!");
             }
         }
     }
@@ -120,9 +122,9 @@ public class CustomerUI {
             customer.inputData(scanner);
             boolean check = customerService.add(customer);
             if(check){
-                System.out.println("Thêm sản khách hàng công!");
+                PrintSuccess.println("Thêm sản khách hàng công!");
             }else{
-                System.out.println("Có lỗi trong quá trình thêm mới!");
+                PrintError.println("Có lỗi trong quá trình thêm mới!");
             }
         }
         displayCustomer(scanner);
@@ -164,7 +166,7 @@ public class CustomerUI {
                         customer.setAddress(Validator.ValidString(scanner, 0,100));
                         break;
                     case 5:
-                        System.out.println("Thoát menu sửa sản phẩm!");
+                        PrintColor.printYellow("Thoát menu sửa sản phẩm!");
                         break;
                     default:
                         System.out.println("Vui lòng chọn từ 1-5!");
@@ -172,13 +174,18 @@ public class CustomerUI {
             } while (choice != 5);
             boolean check = customerService.update(customer);
             if (check) {
-                System.out.println("Sửa khách hàng thành công!");
-                displayCustomer(scanner);
+                PrintSuccess.println("Sửa khách hàng thành công!");
+                System.out.println("+----+--------------------------------+---------------+--------------------------------+--------------------------------+");
+                System.out.println("| ID |         Tên khách hàng         | Số điện thoại |             Email              |              Địa chỉ           |");
+                System.out.println("+----+--------------------------------+---------------+--------------------------------+--------------------------------+");
+                System.out.println(customerService.findById(n).toString());
+                System.out.println("+----+--------------------------------+---------------+--------------------------------+--------------------------------+");
+
             } else {
-                System.out.println("Có lỗi trong quá trình sửa!");
+                PrintError.println("Có lỗi trong quá trình sửa!");
             }
         } else {
-            System.err.println("Id khách hàng không tồn tại!");
+            PrintError.println("Id khách hàng không tồn tại!");
         }
     }
 
@@ -188,10 +195,10 @@ public class CustomerUI {
         System.out.println("Nhập vào id khách hàng cần xóa: ");
         int n = Validator.ValidInt(scanner, 0);
         if(customerService.findById(n) != null){
-            if(invoiceService.findAll().stream().anyMatch(i->i.getCustomerId()==n)){
-                System.err.println("Không thể xóa khách hàng này vì đã có hóa đơn mua hàng!");
-                return;
-            }
+//            if(invoiceService.findAll().stream().anyMatch(i->i.getCustomerId()==n)){
+//                PrintError.println("Không thể xóa khách hàng này vì đã có hóa đơn mua hàng!");
+//                return;
+//            }
             System.out.println("Bạn có chắc chắn muốn xóa:");
             System.out.println("1. Có");
             System.out.println("2. Không");
@@ -202,17 +209,22 @@ public class CustomerUI {
                 customer.setId(n);
                 boolean check = customerService.delete(customer);
                 if(check){
-                    System.out.println("Xóa khách hàng thành công!");
-                    displayCustomer(scanner);
+                    PrintSuccess.println("Đã xóa thành công khách hàng có id là: " + n+"!");
+                    System.out.println("Bạn có muốn xem danh sách khách hàng luôn không? (Nhập 1):");
+                    int c = Validator.ValidInt(scanner,0);
+                    if(c==1){
+                        displayCustomer(scanner);
+                        return;
+                    }
                     return;
                 }
-                System.out.println("Có lỗi trong quá trình xóa khách hàng!");
+                PrintError.println("Có lỗi trong quá trình xóa khách hàng!");
                 return;
             }
-            System.out.println("Đã hủy quá trình xóa!");
+            PrintSuccess.println("Đã hủy quá trình xóa!");
             return;
         }
-        System.err.println("Id khách hàng không tồn tại!");
+        PrintError.println("Id khách hàng không tồn tại!");
     }
 
     public static void searchByName(Scanner scanner){
@@ -220,7 +232,7 @@ public class CustomerUI {
         String name = Validator.ValidString(scanner, 0, 50);
         List<Customer> customers = customerService.searchByName(name);
         if(customers == null ||customers.isEmpty()){
-            System.err.printf("Không tìm thấy khách hàng nào có tên là: %s!\n",name);
+            PrintError.println("Không tìm thấy khách hàng nào có tên là: "+name+"!");
             return;
         }
         System.out.println("+----+--------------------------------+---------------+--------------------------------+--------------------------------+");

@@ -3,6 +3,7 @@ package ra.edu.validate;
 import ra.edu.business.model.Customer;
 import ra.edu.business.service.customer.CustomerService;
 import ra.edu.business.service.customer.CustomerServiceImp;
+import ra.edu.utils.Print.PrintError;
 
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class CustomerValidator {
             List<Customer> listCustomers = customerService.findAll();
             boolean check = listCustomers.stream().anyMatch(c -> c.getPhone().equals(phone) && c.getId() != id);
             if (check) {
-                System.err.println("Số điện thoại đã tồn tại, vui lòng nhập lại!");
+                PrintError.println("Số điện thoại đã tồn tại, vui lòng nhập lại!");
             } else {
                 return phone;
             }
@@ -29,7 +30,7 @@ public class CustomerValidator {
             List<Customer> listCustomers = customerService.findAll();
             boolean check = listCustomers.stream().anyMatch(c -> c.getEmail().equals(email) && c.getId() != id);
             if (check) {
-                System.err.println("Email đã tồn tại, vui lòng nhập lại!");
+                PrintError.println("Email đã tồn tại, vui lòng nhập lại!");
             } else {
                 return email;
             }
@@ -43,7 +44,7 @@ public class CustomerValidator {
             if (customer != null) {
                 return id;
             }
-            System.err.println("Id khách hàng không tồn tại, vui lòng nhập lại!");
+            PrintError.println("Id khách hàng không tồn tại, vui lòng nhập lại!");
         }
     }
 }

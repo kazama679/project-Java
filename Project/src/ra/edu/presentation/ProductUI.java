@@ -1,10 +1,11 @@
 package ra.edu.presentation;
 
 import ra.edu.business.model.Product;
-import ra.edu.business.service.invoiceDetail.InvoiceDetailService;
-import ra.edu.business.service.invoiceDetail.InvoiceDetailServiceImp;
 import ra.edu.business.service.product.ProductService;
 import ra.edu.business.service.product.ProductServiceImp;
+import ra.edu.utils.Print.PrintError;
+import ra.edu.utils.Print.PrintSuccess;
+import ra.edu.utils.Print.printColor.PrintColor;
 import ra.edu.validate.PhoneValidator;
 import ra.edu.validate.Validator;
 
@@ -15,7 +16,6 @@ public class ProductUI {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GRAY = "\u001B[90m";
     private static final ProductService productService = new ProductServiceImp();
-    private static final InvoiceDetailService invoiceDetailService = new InvoiceDetailServiceImp();
 
     public static void menuProduct(Scanner scanner){
         int choice;
@@ -47,10 +47,10 @@ public class ProductUI {
                     searchProduct(scanner);
                     break;
                 case 6:
-                    System.out.println("Thoát MENU PRODUCT!");
+                    PrintColor.printYellow("Thoát MENU PRODUCT!");
                     break;
                 default:
-                    System.out.println("Vui lòng chọn từ 1-6!");
+                    PrintError.println("Vui lòng chọn từ 1-6!");
             }
         }while(choice!=6);
     }
@@ -85,14 +85,14 @@ public class ProductUI {
             switch (choice) {
                 case 1:
                     if(offset==0){
-                        System.err.println("Không thể lùi về trang trước vì đang là trang đầu tiên!");
+                        PrintError.println("Không thể lùi về trang trước vì đang là trang đầu tiên!");
                     }else{
                         offset = offset-rowCount;
                     }
                     break;
                 case 2:
                     if (offset + rowCount >= page) {
-                        System.err.println("Không thể tiến về trang sau vì đang là trang cuối cùng!");
+                        PrintError.println("Không thể tiến về trang sau vì đang là trang cuối cùng!");
                     } else {
                         offset += rowCount;
                     }
@@ -103,10 +103,10 @@ public class ProductUI {
                     offset = n*5-5;
                     break;
                 case 4:
-                    System.out.println("Thoát menu hiển thị danh sách sản phẩm!");
+                    PrintColor.printYellow("Thoát menu hiển thị danh sách sản phẩm!");
                     return;
                 default:
-                    System.err.println("Vui lòng chọn đúng!");
+                    PrintError.println("Vui lòng chọn đúng!");
             }
         }
     }
@@ -119,9 +119,9 @@ public class ProductUI {
             product.inputData(scanner);
             boolean check = productService.add(product);
             if(check){
-                System.out.println("Thêm sản phẩm thành công!");
+                PrintSuccess.println("Thêm sản phẩm thành công!");
             }else{
-                System.out.println("Có lỗi trong quá trình thêm mới!");
+                PrintError.println("Có lỗi trong quá trình thêm mới!");
             }
         }
         displayProduct(scanner);
@@ -163,21 +163,25 @@ public class ProductUI {
                         product.setStock(Validator.ValidInt(scanner, 0));
                         break;
                     case 5:
-                        System.out.println("Thoát menu sửa sản phẩm!");
+                        PrintColor.printYellow("Thoát menu sửa sản phẩm!");
                         break;
                     default:
-                        System.out.println("Vui lòng chọn từ 1-5!");
+                        PrintError.println("Vui lòng chọn từ 1-5!");
                 }
             } while (choice != 5);
             boolean check = productService.update(product);
             if (check) {
-                System.out.println("Sửa sản phẩm thành công!");
-                displayProduct(scanner);
+                PrintSuccess.println("Sửa sản phẩm thành công!");
+                System.out.println("+----+-----------------------------------------------+------------------------+-------------------+------------+");
+                System.out.println("| ID |                 Tên sản phẩm                  |        Nhãn hàng       |     Giá bán       |  Số lượng  |");
+                System.out.println("+----+-----------------------------------------------+------------------------+-------------------+------------+");
+                System.out.println(productService.findById(product.getProductId()).toString());
+                System.out.println("+----+-----------------------------------------------+------------------------+-------------------+------------+");
             } else {
-                System.err.println("Có lỗi trong quá trình sửa!");
+                PrintError.println("Có lỗi trong quá trình sửa!");
             }
         } else {
-            System.err.println("Id sản phẩm không tồn tại!");
+            PrintError.println("Id sản phẩm không tồn tại!");
         }
     }
 
@@ -187,10 +191,6 @@ public class ProductUI {
         System.out.println("Nhập vào id sản phẩm cần xóa: ");
         int n = Validator.ValidInt(scanner, 0);
         if(productService.findById(n) != null){
-//            if(invoiceDetailService.findAll().stream().anyMatch(i->i.getProductId()==n)){
-//                System.err.println("Không thể xóa sản phẩm này vì đã có hóa đơn mua hàng!");
-//                return;
-//            }
             System.out.println("Bạn có chắc chắn muốn xóa:");
             System.out.println("1. Có");
             System.out.println("2. Không");
@@ -201,17 +201,22 @@ public class ProductUI {
                 product.setProductId(n);
                 boolean check = productService.delete(product);
                 if(check){
-                    System.out.println("Xóa sản phẩm thành công!");
-                    displayProduct(scanner);
+                    PrintSuccess.println("Đã xóa thành công sản phẩm có id là: " + n+"!");
+                    System.out.println("Bạn có muốn xem danh sách sản phẩm luôn không? (Nhập 1):");
+                    int c = Validator.ValidInt(scanner,0);
+                    if(c==1){
+                        displayProduct(scanner);
+                        return;
+                    }
                     return;
                 }
-                System.err.println("Có lỗi trong quá trình xóa sản phẩm!");
+                PrintError.println("Có lỗi trong quá trình xóa sản phẩm!");
                 return;
             }
-            System.out.println("Đã hủy quá trình xóa!");
+            PrintSuccess.println("Đã hủy quá trình xóa!");
             return;
         }
-        System.err.println("Id sản phẩm không tồn tại!");
+        PrintError.println("Id sản phẩm không tồn tại!");
     }
 
     public static void searchProduct(Scanner scanner){
@@ -235,10 +240,10 @@ public class ProductUI {
                     searchByStock(scanner);
                     break;
                 case 4:
-                    System.out.println("Thoát menu tìm kiếm sản phẩm!");
+                    PrintColor.printYellow("Thoát menu tìm kiếm sản phẩm!");
                     return;
                 default:
-                    System.err.println("Vui lòng nhập từ 1-4!");
+                    PrintError.println("Vui lòng nhập từ 1-4!");
             }
         }
     }
@@ -248,7 +253,7 @@ public class ProductUI {
         String brand = Validator.ValidString(scanner,0,50);
         List<Product> listProducts = productService.searchByBrand(brand);
         if(listProducts == null ||listProducts.isEmpty()){
-            System.err.printf("Không tìm thấy nhãn hàng nào có tên là: %s!\n",brand);
+            PrintError.println("Không tìm thấy nhãn hàng nào có tên là: "+brand+"!");
             return;
         }
         displayProductSearch(listProducts);
@@ -264,11 +269,11 @@ public class ProductUI {
             if(end > start){
                 break;
             }
-            System.err.println("Phải lớn hơn số ban đầu!");
+            PrintError.println("Phải lớn hơn số ban đầu!");
         }
         List<Product> listProducts = productService.searchByPrice(start, end);
         if(listProducts == null ||listProducts.isEmpty()){
-            System.err.println("Danh sách sản phẩm rỗng!");
+            PrintError.println("Danh sách sản phẩm rỗng!");
             return;
         }
         displayProductSearch(listProducts);
@@ -284,11 +289,11 @@ public class ProductUI {
             if(end > start){
                 break;
             }
-            System.err.println("Phải lớn hơn số ban đầu!");
+            PrintError.println("Phải lớn hơn số ban đầu!");
         }
         List<Product> listProducts = productService.searchByStock(start, end);
         if(listProducts == null ||listProducts.isEmpty()){
-            System.err.println("Danh sách sản phẩm rỗng!");
+            PrintError.println("Danh sách sản phẩm rỗng!");
             return;
         }
         displayProductSearch(listProducts);

@@ -4,6 +4,7 @@ import ra.edu.business.model.Product;
 import ra.edu.business.service.product.ProductService;
 import ra.edu.business.service.product.ProductServiceImp;
 import ra.edu.presentation.ProductUI;
+import ra.edu.utils.Print.PrintError;
 
 import java.util.List;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ public class PhoneValidator {
             List<Product> listProducts = productService.findAll();
             boolean isDuplicate = listProducts.stream().anyMatch(product -> product.getName().equalsIgnoreCase(name) && product.getProductId() != id);
             if (isDuplicate) {
-                System.err.println("Tên sản phẩm đã tồn tại, vui lòng nhập lại!");
+                PrintError.println("Tên sản phẩm đã tồn tại, vui lòng nhập lại!");
             } else {
                 return name;
             }

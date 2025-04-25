@@ -76,7 +76,7 @@ public class Invoice implements IApp {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return String.format(
                 "| %-2d | %-30s | %-10s | %-16s | $%-16.0f |",
-                invoiceId, customerService.findById(customerId).getName(), invoiceDate.format(formatter), invoiceDetailService.findAllById(invoiceId).size(), totalAmount
+                invoiceId, customerService.findByIdAll(customerId).getName(), invoiceDate.format(formatter), invoiceDetailService.findAllById(invoiceId).size(), totalAmount
         );
     }
 }

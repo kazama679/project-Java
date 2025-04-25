@@ -30,9 +30,37 @@ public class ProductDAOImp implements ProductDAO {
                 product.setStock(rs.getInt("stock"));
             }
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
+        } finally {
+            ConnectionDB.closeConnection(conn, callSt);
+        }
+        return product;
+    }
+
+    @Override
+    public Product findByIdAll(int id) {
+        Connection conn = null;
+        CallableStatement callSt = null;
+        Product product = null;
+        try {
+            conn = ConnectionDB.openConnection();
+            callSt = conn.prepareCall("{call get_product_by_id_all(?)}");
+            callSt.setInt(1, id);
+            ResultSet rs = callSt.executeQuery();
+            if(rs.next()){
+                product = new Product();
+                product.setProductId(rs.getInt("product_id"));
+                product.setName(rs.getString("name"));
+                product.setBrand(rs.getString("brand"));
+                product.setPrice(rs.getDouble("price"));
+                product.setStock(rs.getInt("stock"));
+            }
+        } catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
+        } catch (Exception e) {
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
         } finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -60,9 +88,9 @@ public class ProductDAOImp implements ProductDAO {
                 listProducts.add(product);
             }
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
         } finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -91,9 +119,9 @@ public class ProductDAOImp implements ProductDAO {
                 listProducts.add(product);
             }
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
         } finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -122,9 +150,9 @@ public class ProductDAOImp implements ProductDAO {
                 listProducts.add(product);
             }
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
         } finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -153,9 +181,9 @@ public class ProductDAOImp implements ProductDAO {
                 listProducts.add(product);
             }
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
         } finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -174,9 +202,9 @@ public class ProductDAOImp implements ProductDAO {
                 return rs.getInt("total");
             }
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
         } finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -203,9 +231,9 @@ public class ProductDAOImp implements ProductDAO {
                 listProducts.add(product);
             }
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
         } finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -226,9 +254,9 @@ public class ProductDAOImp implements ProductDAO {
             callSt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
         } finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -250,9 +278,9 @@ public class ProductDAOImp implements ProductDAO {
             callSt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
         } finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -270,9 +298,9 @@ public class ProductDAOImp implements ProductDAO {
             callSt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy productDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy productDAOImp!");
         } finally {
             ConnectionDB.closeConnection(conn, callSt);
         }

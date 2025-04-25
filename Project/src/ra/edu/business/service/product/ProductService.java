@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public interface ProductService extends AppService<Product> {
     Product findById(int id);
+    Product findByIdAll(int id);
     List<Product> searchByBrand(String brand);
     List<Product> searchByPrice(double start, double end);
     List<Product> searchByStock(int start, int end);

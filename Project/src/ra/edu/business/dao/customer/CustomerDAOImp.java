@@ -31,9 +31,37 @@ public class CustomerDAOImp implements CustomerDAO{
                 customer.setAddress(rs.getString("address"));
             }
         }catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp!");
+        }finally {
+            ConnectionDB.closeConnection(conn, callSt);
+        }
+        return customer;
+    }
+
+    @Override
+    public Customer findByIdAll(int id) {
+        Connection conn = null;
+        CallableStatement callSt = null;
+        Customer customer = null;
+        try {
+            conn = ConnectionDB.openConnection();
+            callSt = conn.prepareCall("{call get_customer_by_id_all(?)}");
+            callSt.setInt(1, id);
+            ResultSet rs = callSt.executeQuery();
+            if(rs.next()){
+                customer = new Customer();
+                customer.setId(rs.getInt("customer_id"));
+                customer.setName(rs.getString("name"));
+                customer.setPhone(rs.getString("phone"));
+                customer.setEmail(rs.getString("email"));
+                customer.setAddress(rs.getString("address"));
+            }
+        }catch (SQLException e) {
+            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp!");
+        } catch (Exception e) {
+            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -61,9 +89,9 @@ public class CustomerDAOImp implements CustomerDAO{
                 listCustomers.add(customer);
             }
         }catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -92,9 +120,9 @@ public class CustomerDAOImp implements CustomerDAO{
                 listCustomer.add(customer);
             }
         }catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -113,9 +141,9 @@ public class CustomerDAOImp implements CustomerDAO{
                 return rs.getInt("total");
             }
         }catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -142,9 +170,9 @@ public class CustomerDAOImp implements CustomerDAO{
                 listCustomers.add(customer);
             }
         }catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -165,9 +193,9 @@ public class CustomerDAOImp implements CustomerDAO{
             callSt.executeUpdate();
             return true;
         }catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -189,9 +217,9 @@ public class CustomerDAOImp implements CustomerDAO{
             callSt.executeUpdate();
             return true;
         }catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }
@@ -209,9 +237,9 @@ public class CustomerDAOImp implements CustomerDAO{
             callSt.executeUpdate();
             return true;
         }catch (SQLException e) {
-            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi trong quá trình chạy customerDAOImp!");
         } catch (Exception e) {
-            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp: "+ e.fillInStackTrace());
+            PrintError.println("Có lỗi không xác định trong quá trình chạy customerDAOImp!");
         }finally {
             ConnectionDB.closeConnection(conn, callSt);
         }

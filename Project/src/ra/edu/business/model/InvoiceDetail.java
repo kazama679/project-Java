@@ -89,6 +89,6 @@ public class InvoiceDetail {
     @Override
     public String toString() {
         return String.format("| %-2d | %-10d | %-30s | %-8d | %-24.0f |",
-                invoiceDetailId, invoiceId, productService.findById(productId).getName(), quantity, unitPrice);
+                invoiceDetailId, invoiceId, productService.findByIdAll(productId).getName(), quantity, unitPrice);
     }
 }
