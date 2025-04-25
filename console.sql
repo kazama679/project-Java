@@ -289,3 +289,46 @@ begin
 end;
 delimiter //
                                                                             # end-tất cả phần liên quan invoice_detail
+
+# Phân trang sản phẩm
+delimiter //
+create procedure paginate_products(page_index int, page_size int)
+begin
+    select * from products where status=1 and stock>0
+    limit page_index, page_size;
+end //
+delimiter ;
+# call paginate_products(0, 5);
+
+create procedure count_products()
+begin
+    select count(*) as total from products where status=1 and stock>0;
+end;
+
+# Phân trang khách hàng
+delimiter //
+create procedure paginate_customers(page_index int, page_size int)
+begin
+    select * from customers where status=1
+    limit page_index, page_size;
+end //
+delimiter ;
+
+create procedure count_customers()
+begin
+    select count(*) as total from customers where status=1;
+end;
+
+# Phân trang hóa đơn
+delimiter //
+create procedure paginate_invoices(page_index int, page_size int)
+begin
+    select * from invoices
+    limit page_index, page_size;
+end //
+delimiter ;
+
+create procedure count_invoices()
+begin
+    select count(*) as total from invoices;
+end;
