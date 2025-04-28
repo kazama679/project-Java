@@ -51,8 +51,7 @@ values('admin', 'admin', 1);
 delimiter //
 create procedure display_product()
 begin
-    select * from products
-    where status=1 and stock>0;
+    select * from products;
 end;
 
 create procedure add_product(name_in varchar(100), brand_in varchar(50), price_in decimal(10,2), stock_in int)
@@ -146,8 +145,7 @@ delimiter //
 delimiter //
 create procedure display_customer()
 begin
-    select * from customers
-        where status=1;
+    select * from customers;
 end;
 
 create procedure add_customer(name_in varchar(100), phone_in varchar(20), email_in varchar(100), address_in varchar(255))
